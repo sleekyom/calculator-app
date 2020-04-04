@@ -2,10 +2,12 @@ package com.example.simplecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class KilometerToMilesConverter extends AppCompatActivity {
@@ -13,10 +15,11 @@ public class KilometerToMilesConverter extends AppCompatActivity {
     EditText editText;
     TextView textView;
     Button covertBtn;
+    Button mileBtn;
 
-    float kilometer;
-    float miles;
-    float KILOMETER = (float) 0.621371;
+    double kilometer;
+    double miles;
+    double kilo = 0.621371;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,27 @@ public class KilometerToMilesConverter extends AppCompatActivity {
 
         editText = findViewById(R.id.editText);
         textView = findViewById(R.id.convertedValue);
-        covertBtn = findViewById(R.id.converterBtn);
+        covertBtn = findViewById(R.id.convertBtn);
+        mileBtn = findViewById(R.id.mileBtn);
+
+        covertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                kilometer = Double.parseDouble(String.valueOf(editText.getText()));
+
+                miles = kilometer * kilo;
+                textView.setText(String.valueOf(miles)+ " miles");
+            }
+        });
+
+        mileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KilometerToMilesConverter.this, MilesToKilometer.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
